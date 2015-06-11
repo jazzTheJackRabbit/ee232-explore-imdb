@@ -14,8 +14,12 @@ limit = 1000;
 
 movieToMovieLinkMatrix = cell(3000000,1);
 
+fileID = fopen('edgelist.dat','w');
+fclose(fileID);
+
 fileID = fopen('edgelist.dat','a');
 
+numberOfEdges = 0;
 while(lineString ~= -1)
     parsedLineStringArray = strtrim(strsplit(lineString,'\t\t'));
     actorsMovieIndexList = zeros(0,0);    
@@ -66,7 +70,7 @@ while(lineString ~= -1)
                             output = sprintf(formatSpec,movie_m_index,movie_n_index,edgeWeight);
 
                             fprintf(fileID,output);
-
+                            numberOfEdges = numberOfEdges + 1;
                             movieToMovieLinkMatrix{movie_m_index} = [movieToMovieLinkMatrix{movie_m_index} movie_n_index];
                         end
                     end
@@ -88,6 +92,6 @@ while(lineString ~= -1)
 end
 fclose(fileID);
 endTime_actor = fix(clock);
-disp(strcat('Processing done in: ', mat2str(endTime_actor - startTime_actor)))
+disp(strcat('Processing done in: ', mat2str(endTime_actor - startTime_actor),' | Number of Edges=',int2str(numberOfEdges)))
 % disp('Saving workspace to disk,might take some time...');
 % save('./matlab_workspace.mat');
