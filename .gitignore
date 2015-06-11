@@ -1,7 +1,8 @@
 *.DS_Store
-matlab/edgelist.dat
+matlab/storage/edgelist.dat
 matlab/matlab_workspace.mat
-matlab/movieGenreIndexVector.txt
-matlab/movieGenreVector.txt
-matlab/movieTitleVector.txt
-matlab/testing.txt
+matlab/storage/movieGenreIndexVector.txt
+matlab/storage/movieGenreVector.txt
+matlab/storage/movieTitleVector.txt
+matlab/storage/testing.txt
+matlab/.DS_Store
