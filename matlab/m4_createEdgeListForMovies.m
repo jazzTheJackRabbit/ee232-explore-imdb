@@ -62,8 +62,8 @@ while(lineString ~= -1)
                             movie_1 = movieTitleVector(movie_m_index);                    
                             movie_2 = movieTitleVector(movie_n_index);        
 
-                            formatSpec = '%s\t%s\t%6.3f\n';                                                        
-                            output = sprintf(formatSpec,movie_1{1},movie_2{1},edgeWeight);
+                            formatSpec = '%d\t%d\t%6.3f\n';                                                        
+                            output = sprintf(formatSpec,movie_m_index,movie_n_index,edgeWeight);
 
                             fprintf(fileID,output);
 

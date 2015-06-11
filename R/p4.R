@@ -5,3 +5,4 @@ filename = paste(filepath,"edgelist.dat",sep="")
 data2 <- read.csv(filename, sep="\t", header=FALSE)
 g2 <- graph.data.frame(data2, directed = FALSE)
 
+V(graph)$name
