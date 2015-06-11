@@ -49,26 +49,29 @@ while(lineString ~= -1)
     
     %Compute the weight for the edge between each actors movies
     for i = (1:length(actorsMovieIndexList))      
-        for j = (i+1:length(actorsMovieIndexList))
-            movie_m_index = actorsMovieIndexList(i);
-            movie_n_index = actorsMovieIndexList(j);
-            if(isempty(find(movieToMovieLinkMatrix{movie_m_index} == movie_n_index, 1)) && isempty(find(movieToMovieLinkMatrix{movie_n_index} == movie_m_index, 1)))
-                movie_m_actorList = movieActorsMatrix{movie_m_index};
-                movie_n_actorList = movieActorsMatrix{movie_n_index};
-                edgeWeight = size(intersect(movie_m_actorList,movie_n_actorList),2)/size(union(movie_m_actorList,movie_n_actorList),2);
-                
-                if(edgeWeight > 0)     
-                    movie_1 = movieTitleVector(movie_m_index);                    
-                    movie_2 = movieTitleVector(movie_n_index);        
-                    
-                    formatSpec = '%s\t%s\t%6.3f\n';                                                        
-                    output = sprintf(formatSpec,movie_1{1},movie_2{1},edgeWeight);
-                    
-                    fprintf(fileID,output);
-                    
-                    movieToMovieLinkMatrix{movie_m_index} = [movieToMovieLinkMatrix{movie_m_index} movie_n_index];
-                end
-            end 
+        movie_m_index = actorsMovieIndexList(i);
+        movie_m_actorList = movieActorsMatrix{movie_m_index};
+        if(length(movie_m_actorList) >= 5)
+            for j = (i+1:length(actorsMovieIndexList))            
+                movie_n_index = actorsMovieIndexList(j);
+                if(isempty(find(movieToMovieLinkMatrix{movie_m_index} == movie_n_index, 1)) && isempty(find(movieToMovieLinkMatrix{movie_n_index} == movie_m_index, 1)))                
+                    movie_n_actorList = movieActorsMatrix{movie_n_index};
+                    if(length(movie_n_actorList ) >= 5)
+                        edgeWeight = size(intersect(movie_m_actorList,movie_n_actorList),2)/size(union(movie_m_actorList,movie_n_actorList),2);
+                        if(edgeWeight > 0)     
+                            movie_1 = movieTitleVector(movie_m_index);                    
+                            movie_2 = movieTitleVector(movie_n_index);        
+
+                            formatSpec = '%s\t%s\t%6.3f\n';                                                        
+                            output = sprintf(formatSpec,movie_1{1},movie_2{1},edgeWeight);
+
+                            fprintf(fileID,output);
+
+                            movieToMovieLinkMatrix{movie_m_index} = [movieToMovieLinkMatrix{movie_m_index} movie_n_index];
+                        end
+                    end
+                end 
+            end
         end
     end
     
