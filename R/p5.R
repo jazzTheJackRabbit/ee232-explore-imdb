@@ -1,18 +1,32 @@
-
 # part 5 
 require(igraph)
-filepath = "~/workspace/jazz/ucla/ee232e/project2/data/"
+filepath = "C:/Users/Administrator/ws/ee232/explore_imdb/matlab/storage/"
+filename = paste(filepath,"movieTitleVector.txt",sep="")
+movieGenreTable <- read.table(filename, header = FALSE, flush = TRUE,sep="\t")
+movieTitleTable <- read.delim(filename, header = FALSE,sep="\t")
+
+movieTitleVector = unlist(movieTitleTable,use.names = FALSE)
+movieGenreVector = unlist(movieGenreTable,use.names = FALSE)
+
+#PART 5 STARTS HERE
 filename = paste(filepath,"edgelist.dat",sep="")
-data2 <- read.csv(filename, sep="\t", header=FALSE)
+data2 <- read.csv(filename, sep="", header=FALSE)
 
-movieGenreVector <- #Read from file
-  
-titleIndices <- V(g2)$names
-genresForVertices <- movieGenreVector[titleIndices]
+g=graph.data.frame(as.matrix(data2),directed=FALSE)
 
-V(g2)$genre <- as.character(datam[,2])
+titleIndices <- V(g)$name
+V(g)$title <- as.character(movieTitleVector[as.numeric(titleIndices)])
+V(g)$genre <- as.character(movieGenreVector[as.numeric(titleIndices)])
 
+vertexListWithGenres = which(V(g)$genre != "n/a")
+
+g2 = induced.subgraph(g,vertexListWithGenres)
+
+startTime_communityCreation = timestamp()
 fgcomm <- fastgreedy.community(g2, weights=E(g2)$V3)
+endTime_communityCreation = timestamp()
+sendMail('[232 Script Update]','Community Detection is Done!')
+
 
 # for each community c 
 for(c in 1:length(sizes(fgcomm)))
@@ -24,3 +38,17 @@ for(c in 1:length(sizes(fgcomm)))
   print("-----------------------------------------------------------------------------")
 }
 
+
+sendMail <- function(titleText,bodyText){
+  library(mailR)
+  sender <- "roycee232@gmail.com"
+  recipients <- c("amogh.91@gmail.com")
+  send.mail(from = sender,
+            to = recipients,
+            subject = titleText,
+            body = bodyText,
+            smtp = list(host.name = "smtp.gmail.com", port = 465, 
+                        user.name="roycee232@gmail.com", passwd="royc1234", ssl=TRUE),
+            authenticate = TRUE,
+            send = TRUE)
+}
