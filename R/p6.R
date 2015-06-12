@@ -2,6 +2,7 @@
 targetVertices = c(1,2,3)
 
 for(i in 1:length(targetVertices)){
+  #Remove self node as self to self weight will be 0
   neighborsOfVertex = neighborhood(g,targetVertcies[i],1)  
   edgePairMatrix = rbind(rep(targetVertices[i],length(neighborsOfVertex)),neighborsOfVertex)
   edgeIndices = get.edge.ids(g,edgePairMatrix)
