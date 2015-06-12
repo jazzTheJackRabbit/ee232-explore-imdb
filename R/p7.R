@@ -34,7 +34,7 @@ g3 = induced.subgraph(g2,vertexIndexListOfMoviesWithRating)
 
 #Create training, testing and prediction set
 totalNumberOfMoviesWithRatings = length(V(g3))
-trainSetEndIndex = round((0.7)*totalNumberOfMoviesWithRatings)
+trainSetEndIndex = round((1)*totalNumberOfMoviesWithRatings)
 trainingVertexIndexList = c(1:trainSetEndIndex)
 testingVertexIndexList = c((trainSetEndIndex+1):totalNumberOfMoviesWithRatings)
 trainSetEndIndex;length(trainingVertexList);length(testingVertexList);length(trainingVertexList)+length(testingVertexList)
@@ -137,3 +137,4 @@ for (vertexIndex in 1:length(predictionSetVertexIndices)){
 
 predictedRating_f1 = (featureMatrixForPredictionData * m_f1) + c_f1
 predictedRating_f2 = (featureMatrixForPredictionData * m_f2) + c_f2
+

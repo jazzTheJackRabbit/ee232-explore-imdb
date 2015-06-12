@@ -1,12 +1,19 @@
 # part 5 
 require(igraph)
-filepath = "C:/Users/Administrator/ws/ee232/explore_imdb/matlab/storage/"
-filename = paste(filepath,"movieTitleVector.txt",sep="")
+filepath = "/Users/amogh/workspace/jazz/ucla/ee232e/project2/code/matlab/storage/"
+
+filename = paste(filepath,"movieGenreVector.txt",sep="")
 movieGenreTable <- read.table(filename, header = FALSE, flush = TRUE,sep="\t")
+
+filename = paste(filepath,"movieTitleVector.txt",sep="")
 movieTitleTable <- read.delim(filename, header = FALSE,sep="\t")
+
+filename = paste(filepath,"movieRatingsVector.txt",sep="")
+movieRatingsTable <- read.delim(filename, header = FALSE,sep="\t")
 
 movieTitleVector = unlist(movieTitleTable,use.names = FALSE)
 movieGenreVector = unlist(movieGenreTable,use.names = FALSE)
+movieRatingsVector = unlist(movieRatingsTable,use.names = FALSE)
 
 #PART 5 STARTS HERE
 filename = paste(filepath,"edgelist.dat",sep="")
@@ -17,6 +24,7 @@ g=graph.data.frame(as.matrix(data2),directed=FALSE)
 titleIndices <- V(g)$name
 V(g)$title <- as.character(movieTitleVector[as.numeric(titleIndices)])
 V(g)$genre <- as.character(movieGenreVector[as.numeric(titleIndices)])
+V(g)$ratings <- as.numeric(movieRatingsVector[as.numeric(titleIndices)])
 
 vertexListWithGenres = which(V(g)$genre != "n/a")
 
