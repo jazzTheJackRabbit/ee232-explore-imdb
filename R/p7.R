@@ -84,6 +84,7 @@ plot(f2,r)
 
 f1_fit <- lm(r ~ f1)
 f2_fit <- lm(r ~ f2)
+f3_fit <- lm(r ~ f3)
 
 abline(f1_fit)
 
@@ -93,6 +94,9 @@ c_f1 = f1_fit$coefficients[[1]]
 
 m_f2 = f2_fit$coefficients[[2]] 
 c_f2 = f2_fit$coefficients[[1]]
+
+m_f3 = f3_fit$coefficients[[2]] 
+c_f3 = f3_fit$coefficients[[1]]
 
 ########################
 ######IGNORE-START######
@@ -156,6 +160,6 @@ for (vertexIndex in 1:length(predictionSetVertexIndices)){
   
 }
 
-predictedRating_f1 = (featureMatrixForPredictionData * m_f1) + c_f1
-predictedRating_f2 = (featureMatrixForPredictionData * m_f2) + c_f2
-
+predictedRating_f1 = (featureMatrixForPredictionData[,1] * m_f1) + c_f1
+predictedRating_f2 = (featureMatrixForPredictionData[,2] * m_f2) + c_f2
+predictedRating_f3 = (featureMatrixForPredictionData[,3] * m_f3) + c_f3
