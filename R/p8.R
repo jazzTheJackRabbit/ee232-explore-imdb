@@ -64,8 +64,8 @@ for (vertexIndex in 1:length(trainingVertexIndexList)){
   
   featureVectorForMovie = c(f1_meanNeighborRating,f2_meanCommunityRating,f3_meanTop20NeighborRating)
   featureMatrixForTrainingData[vertexIndex,] = as.numeric(featureVectorForMovie)
-
-  if(vertexIndex%%1000 == 0){
+  
+  if(vertexIndex%%100 == 0){
     print(paste(vertexIndex,length(trainingVertexIndexList),sep="/"))
   }
 }
